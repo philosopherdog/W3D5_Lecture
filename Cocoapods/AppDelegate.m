@@ -8,6 +8,36 @@
 
 #import "AppDelegate.h"
 
+#pragma mark - Person
+@interface Person: NSObject
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSNumber *age;
+- (instancetype)initWithName:(NSString *)name age:(NSNumber *)age NS_DESIGNATED_INITIALIZER;
+@end
+
+@implementation Person
+- (instancetype)initWithName:(NSString *)name age:(NSNumber *)age {
+    if (self = [super init]) {
+        _name = name;
+        _age = age;
+    }
+    return self;
+}
+
+- (instancetype)init {
+    NSAssert(NO, @"always use the designated init");
+    return [self initWithName:@"default" age:@(0)];
+}
+
+// override so that we can log the object to the console
+- (NSString *)description {
+    return [NSString stringWithFormat:@"name: %@ age: %@", self.name, self.age];
+}
+
+@end
+
+#pragma mark - AppDelegate
+
 @interface AppDelegate ()
 
 @end
@@ -16,30 +46,33 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    NSArray *persons = [self createPersons];
+    [self sortWithPersons:persons];
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (NSArray *)createPersons {
+    Person *p1 = [[Person alloc] initWithName:@"Fred" age:@(30)];
+    Person *p2 = [[Person alloc] initWithName:@"Jane" age:@(30)];
+    Person *p3 = [[Person alloc] initWithName:@"Lit" age:@(20)];
+    Person *p4 = [[Person alloc] initWithName:@"Fritz" age:@(20)];
+    Person *p5 = [[Person alloc] initWithName:@"Mitzy" age:@(30)];
+    Person *p6 = [[Person alloc] initWithName:@"Linda" age:@(28)];
+    Person *p7 = [[Person alloc] initWithName:@"Don" age:@(28)];
+    Person *p8 = [[Person alloc] initWithName:@"Steve" age:@(55)];
+    Person *p9 = [[Person alloc] initWithName:@"Elly" age:@(55)];
+    Person *p10 = [[Person alloc] initWithName:@"Abe" age:@(55)];
+    Person *p11 = [[Person alloc] initWithName:@"Adam" age:@(44)];
+    return @[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)sortWithPersons:(NSArray*)persons {
+    
+    // sort the array into a dictionary where the key is the age, and the value is an array of person objects
+    
+    
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
 
 @end
